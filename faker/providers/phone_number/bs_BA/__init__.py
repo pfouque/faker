@@ -2,6 +2,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "BA"
     formats = (
         "030 ### ###",
         "031 ### ###",

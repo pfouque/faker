@@ -2,6 +2,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "TH"
+
     # as per https://en.wikipedia.org/wiki/Telephone_numbers_in_Thailand
     formats = (
         # landline (9 digits, starts with 02, 03, 04, 05, or 07)

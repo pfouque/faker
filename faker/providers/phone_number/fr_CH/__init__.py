@@ -2,6 +2,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "CH"
     formats = (
         "+41 2# ### ## ##",
         "+41 3# ### ## ##",

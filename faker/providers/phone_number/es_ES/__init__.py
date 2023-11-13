@@ -9,6 +9,8 @@ class Provider(PhoneNumberProvider):
     https://avancedigital.mineco.gob.es/es-ES/Servicios/Numeracion/Documents/Guia_Numeracion.pdf
     """
 
+    region_code = "ES"
+
     PREFIXES = (
         "6##",
         "70#",

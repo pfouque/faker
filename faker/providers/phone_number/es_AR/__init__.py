@@ -8,6 +8,8 @@ class Provider(PhoneNumberProvider):
     https://www.argentina.gob.ar/pais/codigo-telefonia
     """
 
+    region_code = "AR"
+
     formats = (
         "+54 15 2%## ####",  # National telephone to mobile phone
         "+54 9 3%## ####",  # International phone}

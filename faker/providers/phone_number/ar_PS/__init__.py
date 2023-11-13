@@ -5,6 +5,8 @@ class Provider(PhoneNumberProvider):
     # Source:
     # https://en.wikipedia.org/wiki/Telephone_numbers_in_the_State_of_Palestine
 
+    region_code = "PS"
+
     cellphone_formats = (
         "{{area_code}} {{provider_code}} ### ####",
         "{{area_code}}{{provider_code}}#######",

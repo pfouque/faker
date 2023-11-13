@@ -21,8 +21,15 @@ class TestPhoneNumber:
             assert len(msisdn) == 13
             assert msisdn.isdigit()
 
+    def test_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert isinstance(e164, str)
+            assert len(e164) <= 15
+            assert e164[0] == '+'
+            assert e164[1:].isdigit()
 
-class TestAzAz:
+class TestAzAz(TestPhoneNumber):
     """Test az_AZ phone number provider methods"""
 
     @classmethod
@@ -53,7 +60,7 @@ class TestAzAz:
             assert self.landline_patterns.fullmatch(landline_number)
 
 
-class TestJaJp:
+class TestJaJp(TestPhoneNumber):
     """Test ja_JP phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -63,7 +70,7 @@ class TestJaJp:
             assert pattern.fullmatch(phone_number)
 
 
-class TestCsCz:
+class TestCsCz(TestPhoneNumber):
     """Test cs_CZ phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -73,7 +80,7 @@ class TestCsCz:
             assert pattern.fullmatch(phone_number)
 
 
-class TestSkSk:
+class TestSkSk(TestPhoneNumber):
     """Test sk_SK phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -88,7 +95,7 @@ class TestSkSk:
             assert pattern.fullmatch(phone_number)
 
 
-class TestPtBr:
+class TestPtBr(TestPhoneNumber):
     """Test pt_BR phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -120,7 +127,7 @@ class TestPtBr:
             assert pattern.fullmatch(service)
 
 
-class TestHuHu:
+class TestHuHu(TestPhoneNumber):
     """Test hu_HU phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -133,7 +140,7 @@ class TestHuHu:
             assert pattern.fullmatch(phone_number)
 
 
-class TestThTh:
+class TestThTh(TestPhoneNumber):
     """Test th_TH phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -152,7 +159,7 @@ class TestThTh:
             assert pattern.fullmatch(phone_number)
 
 
-class TestHyAm:
+class TestHyAm(TestPhoneNumber):
     """Test hy_AM phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -165,7 +172,7 @@ class TestHyAm:
             assert pattern.fullmatch(phone_number)
 
 
-class TestEnPh:
+class TestEnPh(TestPhoneNumber):
     """Test en_PH phone number provider methods"""
 
     @classmethod
@@ -281,7 +288,7 @@ class TestTlPh(TestEnPh):
     pass
 
 
-class TestTaIn:
+class TestTaIn(TestPhoneNumber):
     """Test ta_IN phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -293,7 +300,7 @@ class TestTaIn:
             assert pattern.fullmatch(phone_number)
 
 
-class TestEsCo:
+class TestEsCo(TestPhoneNumber):
     """Test es_CO phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -310,7 +317,7 @@ class TestEsCo:
             assert pattern.fullmatch(phone_number)
 
 
-class TestEsEs:
+class TestEsEs(TestPhoneNumber):
     """Test es_ES phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -322,7 +329,7 @@ class TestEsEs:
             assert pattern.fullmatch(phone_number)
 
 
-class TestArAe:
+class TestArAe(TestPhoneNumber):
     """Test ar_AE phone number provider methods"""
 
     cellphone_pattern: str = r"(?:\+|00)971\s?5[024568]\s?\d{3}\s?\d{4}|" r"05[024568]\s?\d{3}\s?\d{4}"
@@ -366,7 +373,7 @@ class TestArAe:
             assert pattern.fullmatch(phone)
 
 
-class TestFrFr:
+class TestFrFr(TestPhoneNumber):
     def test_phone_number(self, faker, num_samples):
         pattern_no_whitespaces: Pattern = re.compile(
             r"^0\d{9}$",
@@ -397,8 +404,13 @@ class TestFrFr:
                     break
             assert pattern_is_found
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+33")
 
-class TestEnUs:
+
+class TestEnUs(TestPhoneNumber):
     """Test En_US phone provider methods"""
 
     def test_basic_phone_number(self, faker, num_samples):

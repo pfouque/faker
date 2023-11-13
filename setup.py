@@ -70,5 +70,8 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "python-dateutil>=2.4",
+        "phonenumbers",
+        # "phonenumberslite",
+        # "typing-extensions>=3.10.0.1;python_version<='3.8'",
     ],
 )

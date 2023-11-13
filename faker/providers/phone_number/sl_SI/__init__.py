@@ -2,6 +2,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "SI"
+    
     formats = (
         "040 ### ###",
         "041 ### ###",

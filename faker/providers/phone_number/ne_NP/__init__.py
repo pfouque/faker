@@ -2,6 +2,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "NP"
+    
     formats = (
         "+977 ##########",
         "+977 ### #######",

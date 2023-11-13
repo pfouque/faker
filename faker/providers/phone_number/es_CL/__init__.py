@@ -9,6 +9,8 @@ class Provider(PhoneNumberProvider):
     https://www.subtel.gob.cl/base_numeracion/tabla_numeracion_ido_idd.xlsx
     """
 
+    region_code = "CL"
+
     formats = (
         "+56 2 2%## ####",  # santiago landline
         "+56 2 3%## ####",

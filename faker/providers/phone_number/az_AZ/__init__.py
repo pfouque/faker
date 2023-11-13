@@ -2,6 +2,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "AZ"
+
     cellphone_formats = (
         "+994{{provider_code}}{{start_digit}}######",
         "0{{provider_code}} {{start_digit}}## ## ##",

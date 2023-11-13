@@ -6,6 +6,8 @@ class Provider(PhoneNumberProvider):
     #   https://cs.wikipedia.org/wiki/Telefonn%C3%AD_%C4%8D%C3%ADslo
     #   https://www.srovnejto.cz/blog/jake-jsou-telefonni-predvolby-do-zahranici/
 
+    region_code = "CZ"
+
     formats = (
         # prefix 00420
         # 601-608
