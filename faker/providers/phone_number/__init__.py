@@ -1,8 +1,9 @@
-# from itertools import chain
+from itertools import chain
 
 import phonenumbers
 
 from .. import BaseProvider, ElementsType
+
 # Data source
 #
 # The country codes in this provider comes from the following source:
@@ -319,51 +320,53 @@ class Provider(BaseProvider):
         "+263",
     )
 
+    region_code: str | None = None
+
     formats: ElementsType[str] = ("###-###-###",)
 
     msisdn_formats: ElementsType[str] = ("#############",)
 
     """
     "safe_numbers" provided by https://fakenumber.org/
-    
+
     The GB/United Kingdom "safe_numbers" are reported as invalid by the phonenumbers package.
     """
     safe_numbers = {
-        'AU': [
-            '+61491570156',
-            '+61491570157',
-            '+61491570158',
-            '+61491570159',
-            '+61491570110',
+        "AU": [
+            "+61491570156",
+            "+61491570157",
+            "+61491570158",
+            "+61491570159",
+            "+61491570110",
         ],
-        'US': [
-            '+12025550191',
-            '+12025550188',
-            '+12025550187',
-            '+12025550137',
-            '+12025550105',
-            '+12025550124',
+        "US": [
+            "+12025550191",
+            "+12025550188",
+            "+12025550187",
+            "+12025550137",
+            "+12025550105",
+            "+12025550124",
         ],
-        'GB': [
-            '+441632960600',
-            '+441632960541',
-            '+441632960702',
-            '+441632960979',
-            '+441632960570',
-            '+441632960864',
+        "GB": [
+            "+441632960600",
+            "+441632960541",
+            "+441632960702",
+            "+441632960979",
+            "+441632960570",
+            "+441632960864",
         ],
-        'CA': [
-            '+16135550110',
-            '+16135550120',
-            '+16135550109',
-            '+16135550151',
-            '+16135550136',
-            '+16135550119',
-        ]
+        "CA": [
+            "+16135550110",
+            "+16135550120",
+            "+16135550109",
+            "+16135550151",
+            "+16135550136",
+            "+16135550119",
+        ],
     }
 
     # e164_formats: ElementsType[str] = ("+#############",)
-    _e164_numerify_pattern = '%######!!!!!!!!'  # https://en.wikipedia.org/wiki/E.164
+    _e164_numerify_pattern = "%######!!!!!!!!"  # https://en.wikipedia.org/wiki/E.164
 
     def phone_number(self) -> str:
         return self.numerify(self.random_element(self.formats))
@@ -375,26 +378,19 @@ class Provider(BaseProvider):
         """https://en.wikipedia.org/wiki/MSISDN"""
         return self.numerify(self.random_element(self.msisdn_formats))
 
-    def region_code(self) -> str:
-        """Generate a random country_code (e.g. GB)."""
-
-        return self.random_element(
-            set(chain(*BaseProvider.language_locale_codes.values()))
-        )
-
-    def _get_e164_numerify_pattern(self, region_code: str, is_possible=True):
+    def _get_e164_numerify_pattern(self, region_code: str, is_possible: bool = True) -> str:
         if not is_possible:
-            return '#!!!!!!'
+            return "#!!!!!!"
         country_code = phonenumbers.country_code_for_region(region_code)
-        return str(country_code) + self._e164_numerify_pattern[len(str(country_code)):]
+        return str(country_code) + self._e164_numerify_pattern[len(str(country_code)) :]
 
-    def _e164(self, region_code: str, is_valid=True, is_possible=True) -> phonenumbers.PhoneNumber:
+    def _e164(self, region_code: str, is_valid: bool = True, is_possible: bool = True) -> phonenumbers.PhoneNumber:
         """
         Generate an e164 phone number
         """
-        assert not (is_valid and not is_possible), 'is_valid must be False if is_possible is False'
+        assert not (is_valid and not is_possible), "is_valid must be False if is_possible is False"
         e164_numerify_pattern = self._get_e164_numerify_pattern(region_code, is_possible=is_possible)
-        phone_number = self.numerify(e164_numerify_pattern)
+        phone_number: str | phonenumbers.PhoneNumber = self.numerify(e164_numerify_pattern)
         while not isinstance(phone_number, phonenumbers.PhoneNumber):
             try:
                 phone_number = phonenumbers.parse(phone_number, region_code)
@@ -418,18 +414,21 @@ class Provider(BaseProvider):
 
         return phone_number
 
-    def e164(self, region_code: str = None, valid=True, possible=True) -> str:
+    def e164(self, region_code: str = None, valid: bool = True, possible: bool = True) -> str:
         """Return a random e164 formatted phone number"""
         if region_code is None:
             region_code = self.region_code or self.random_element(phonenumbers.SUPPORTED_REGIONS)
-        return phonenumbers.format_number(self._e164(region_code, is_valid=valid, is_possible=possible), phonenumbers.PhoneNumberFormat.E164)
+        return phonenumbers.format_number(
+            numobj=self._e164(region_code, is_valid=valid, is_possible=possible),
+            num_format=phonenumbers.PhoneNumberFormat.E164,
+        )
 
-    def safe_e164(self, region_code: str = None) -> str:
+    def safe_e164(self, region_code: str | None = None) -> str:
         """Return a "safe" e164 phone number"""
         region_code = region_code or self.region_code
 
         if region_code not in self.safe_numbers.keys():
-            raise ValueError(f'No safe numbers for region code {region_code}')
+            raise ValueError(f"No safe numbers for region code {region_code}")
 
         if region_code is None:
             region_code = self.random_element(list(self.safe_numbers.keys()))

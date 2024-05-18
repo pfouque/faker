@@ -3,7 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     region_code = "PL"
-    
+
     formats = (
         # Mobile
         # Government website: http://www.uke.gov.pl/numeracja-843

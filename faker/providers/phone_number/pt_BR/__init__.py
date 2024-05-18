@@ -3,7 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     region_code = "BR"
-    
+
     formats = (
         "+55 (011) #### ####",
         "+55 (021) #### ####",

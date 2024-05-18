@@ -3,7 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     region_code = "PT"
-    
+
     formats = (
         "(351) 91# ### ###",
         "(351) 92# ### ###",

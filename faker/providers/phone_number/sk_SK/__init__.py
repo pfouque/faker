@@ -3,7 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     region_code = "SK"
-    
+
     formats = (
         # pattern I.
         "00421 2 ########",

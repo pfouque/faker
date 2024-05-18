@@ -3,7 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     region_code = "IT"
-    
+
     formats = (
         "+39 {{area_code}}#####!!",
         "{{area_code}}#####!!",

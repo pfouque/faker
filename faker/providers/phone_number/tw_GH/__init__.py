@@ -3,7 +3,7 @@ from .. import Provider as PhoneNumberProvider
 
 class Provider(PhoneNumberProvider):
     region_code = "GH"
-    
+
     formats = (
         "+23327#######",
         "+23357#######",
