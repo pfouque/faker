@@ -16,6 +16,8 @@ class Provider(PhoneNumberProvider):
     # more realistic data and is of benefit to those developing data cleansing
     # tools etc.  All possible official fake numbers are covered below.
 
+    region_code = "GB"
+
     cellphone_formats = (
         "07700 900 ###",
         "07700 900###",

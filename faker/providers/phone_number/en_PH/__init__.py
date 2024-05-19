@@ -1,9 +1,9 @@
 from typing import Sequence, Tuple
 
-from ... import BaseProvider
+from .. import Provider as PhoneNumberProvider
 
 
-class Provider(BaseProvider):
+class Provider(PhoneNumberProvider):
     """
     Provider for Philippine mobile and landline telephone numbers
 
@@ -31,6 +31,8 @@ class Provider(BaseProvider):
         - https://www.prefix.ph/prefixes/2019-updated-complete-list-of-philippine-mobile-network-prefixes/
         - https://powerpinoys.com/network-prefixes-philippines/
     """
+
+    region_code = "PH"
 
     globe_mobile_number_prefixes: Tuple[str, ...] = (
         "817",

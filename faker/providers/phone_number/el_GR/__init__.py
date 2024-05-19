@@ -2,6 +2,7 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "GR"
     formats = (
         "69########",
         "69## ######",

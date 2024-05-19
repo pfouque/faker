@@ -4,6 +4,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "TW"
+
     formats = (
         "(0#) %#######",
         "0#-%#######",

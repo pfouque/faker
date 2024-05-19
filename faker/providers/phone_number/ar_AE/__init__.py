@@ -4,6 +4,8 @@ from .. import Provider as PhoneNumberProvider
 class Provider(PhoneNumberProvider):
     # Source: https://en.wikipedia.org/wiki/Telephone_numbers_in_the_United_Arab_Emirates
 
+    region_code = "AE"
+
     cellphone_formats = (
         "{{area_code}} {{cellphone_provider_code}} ### ####",
         "{{area_code}}{{cellphone_provider_code}}#######",

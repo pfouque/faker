@@ -10,6 +10,8 @@ class Provider(PhoneNumberProvider):
         - https://en.wikipedia.org/wiki/Telephone_numbers_in_Bangladesh
     """
 
+    region_code = "BD"
+
     country_calling_codes = (
         "+৯৩",
         "+৩৫৮ ১৮",

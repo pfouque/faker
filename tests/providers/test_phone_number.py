@@ -1,6 +1,9 @@
+import pytest
 import re
 
 from typing import Pattern
+
+import phonenumbers
 
 from faker.providers.phone_number import Provider as PhoneNumberProvider
 from faker.providers.phone_number.en_PH import Provider as EnPhPhoneNumberProvider
@@ -21,8 +24,23 @@ class TestPhoneNumber:
             assert len(msisdn) == 13
             assert msisdn.isdigit()
 
+    def test_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert isinstance(e164, str)
+            assert len(e164) <= 15
+            assert e164[0] == "+"
+            assert e164[1:].isdigit()
 
-class TestAzAz:
+    def test_safe_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert isinstance(e164, str)
+            assert len(e164) <= 15
+            assert e164[0] == "+"
+            assert e164[1:].isdigit()
+
+class TestAzAz(TestPhoneNumber):
     """Test az_AZ phone number provider methods"""
 
     @classmethod
@@ -52,8 +70,13 @@ class TestAzAz:
             assert isinstance(landline_number, str)
             assert self.landline_patterns.fullmatch(landline_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+994")
 
-class TestJaJp:
+
+class TestJaJp(TestPhoneNumber):
     """Test ja_JP phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -63,7 +86,7 @@ class TestJaJp:
             assert pattern.fullmatch(phone_number)
 
 
-class TestCsCz:
+class TestCsCz(TestPhoneNumber):
     """Test cs_CZ phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -72,8 +95,13 @@ class TestCsCz:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+42")
 
-class TestSkSk:
+
+class TestSkSk(TestPhoneNumber):
     """Test sk_SK phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -87,8 +115,13 @@ class TestSkSk:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+42")
 
-class TestPtBr:
+
+class TestPtBr(TestPhoneNumber):
     """Test pt_BR phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -119,8 +152,13 @@ class TestPtBr:
             service = faker.service_phone_number()
             assert pattern.fullmatch(service)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+55")
 
-class TestHuHu:
+
+class TestHuHu(TestPhoneNumber):
     """Test hu_HU phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -132,8 +170,13 @@ class TestHuHu:
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+36")
 
-class TestThTh:
+
+class TestThTh(TestPhoneNumber):
     """Test th_TH phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -151,8 +194,13 @@ class TestThTh:
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+66")
 
-class TestHyAm:
+
+class TestHyAm(TestPhoneNumber):
     """Test hy_AM phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -164,8 +212,13 @@ class TestHyAm:
             assert isinstance(phone_number, str)
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+37")
 
-class TestEnPh:
+
+class TestEnPh(TestPhoneNumber):
     """Test en_PH phone number provider methods"""
 
     @classmethod
@@ -268,20 +321,31 @@ class TestEnPh:
             elif non_area2_match:
                 assert non_area2_match.group(1) in self.non_area2_landline_area_codes
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+63")
+
 
 class TestFilPh(TestEnPh):
     """Test fil_PH phone number provider methods"""
 
-    pass
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+63")
 
 
 class TestTlPh(TestEnPh):
     """Test tl_PH phone number provider methods"""
 
-    pass
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+63")
 
 
-class TestTaIn:
+class TestTaIn(TestPhoneNumber):
     """Test ta_IN phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -292,8 +356,13 @@ class TestTaIn:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+91")
 
-class TestEsCo:
+
+class TestEsCo(TestPhoneNumber):
     """Test es_CO phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -309,8 +378,13 @@ class TestEsCo:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+57")
 
-class TestEsEs:
+
+class TestEsEs(TestPhoneNumber):
     """Test es_ES phone number provider methods"""
 
     def test_phone_number(self, faker, num_samples):
@@ -321,8 +395,13 @@ class TestEsEs:
             phone_number = faker.phone_number()
             assert pattern.fullmatch(phone_number)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+34")
 
-class TestArAe:
+
+class TestArAe(TestPhoneNumber):
     """Test ar_AE phone number provider methods"""
 
     cellphone_pattern: str = r"(?:\+|00)971\s?5[024568]\s?\d{3}\s?\d{4}|" r"05[024568]\s?\d{3}\s?\d{4}"
@@ -365,8 +444,13 @@ class TestArAe:
             phone = faker.phone_number()
             assert pattern.fullmatch(phone)
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+97")
 
-class TestFrFr:
+
+class TestFrFr(TestPhoneNumber):
     def test_phone_number(self, faker, num_samples):
         pattern_no_whitespaces: Pattern = re.compile(
             r"^0\d{9}$",
@@ -397,8 +481,13 @@ class TestFrFr:
                     break
             assert pattern_is_found
 
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+33")
 
-class TestEnUs:
+
+class TestEnUs(TestPhoneNumber):
     """Test En_US phone provider methods"""
 
     def test_basic_phone_number(self, faker, num_samples):
@@ -417,3 +506,58 @@ class TestEnUs:
                     pattern_is_found = True
                     break
             assert pattern_is_found
+
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith(
+                (
+                    "+1",
+                    # "+1340",  # United States Virgin Islands
+                    # "+1670",  # Northern Mariana Islands
+                    # "+1671",  # Guam
+                    # "+1684",  # American Samoa
+                    # "+1787",  #  Puerto Rico
+                    # "+1939",  #  Puerto Rico
+                )
+            )
+
+    def test_safe_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            faker.safe_e164()
+
+
+class TestEnAu(TestPhoneNumber):
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+61")
+
+    def test_safe_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.safe_e164()
+            assert e164.startswith("+61")
+
+
+class TestEnCa(TestPhoneNumber):
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+1")
+
+    def test_safe_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.safe_e164()
+            assert e164.startswith("+1")
+
+
+class TestEnGb(TestPhoneNumber):
+    def test_e164_prefix(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.e164()
+            assert e164.startswith("+44")
+
+    def test_safe_e164(self, faker, num_samples):
+        for _ in range(num_samples):
+            e164 = faker.safe_e164()
+            assert e164.startswith("+44")

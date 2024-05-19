@@ -2,6 +2,9 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+
+    region_code = "FR"
+
     formats = (
         "+33 (0){{area_code_with_separator}} ## ## ##",
         "+33 {{area_code_with_separator}} ## ## ##",

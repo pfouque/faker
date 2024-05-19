@@ -4,6 +4,8 @@ from .. import Provider as PhoneNumberProvider
 class Provider(PhoneNumberProvider):
     # Source: https://en.wikipedia.org/wiki/Telephone_numbers_in_Jordan
 
+    region_code = "JO"
+
     cellphone_formats = (
         "+9627{{operator_id}}#######",
         "+962 7 {{operator_id}}### ####",

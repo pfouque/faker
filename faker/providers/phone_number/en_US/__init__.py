@@ -2,6 +2,8 @@ from .. import Provider as PhoneNumberProvider
 
 
 class Provider(PhoneNumberProvider):
+    region_code = "US"
+
     formats = (
         # Standard 10-digit phone number formats
         "$##$######",
